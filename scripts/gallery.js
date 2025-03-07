@@ -1,19 +1,19 @@
 // Available images in each category
 const galleryImages = {
     'gcse-artbook': [
-        'Sample-Image-file-Download.jpg',
+        'IMG_5129.jpg',
         'sample-2.jpg'
     ],
     'drawings': [
-        'Sample-Image-file-Download (3).jpg',
+        'IMG_5097.jpg',
         'sample-3.jpg'
     ],
     'oil-and-acrylic': [
-        'Sample-Image-file-Download (2).jpg',
+        'IMG_6086.jpg',
         'sample-1.jpg'
     ],
     'other': [
-        'Sample-Image-file-Download (1).jpg',
+        'IMG_6088.jpg',
         'sample-5.jpg'
     ]
 };
@@ -38,25 +38,34 @@ function getRandomImageUrl(folder, currentSrc) {
     }
     
     const randomIndex = Math.floor(Math.random() * availableImages.length);
-    return `images/${folder}/${availableImages[randomIndex]}`;
+    const newUrl = `images/${folder}/${availableImages[randomIndex]}`;
+    console.log(`Changing ${folder} image to: ${newUrl}`);
+    return newUrl;
 }
 
 // Function to fade out and in
 async function fadeTransition(element, newSrc) {
+    console.log(`Starting fade transition for ${element.dataset.folder}`);
     element.style.opacity = '0';
     await new Promise(resolve => setTimeout(resolve, 500));
     element.src = newSrc;
     element.style.opacity = '1';
+    console.log(`Completed fade transition for ${element.dataset.folder}`);
 }
 
 // Update a single preview
 async function updatePreview(preview) {
     const folder = preview.dataset.folder;
+    console.log(`Updating preview for ${folder}`);
+    
     const newImageUrl = getRandomImageUrl(folder, preview.src);
-    if (!newImageUrl) return;
+    if (!newImageUrl) {
+        console.warn(`No image URL generated for ${folder}`);
+        return;
+    }
 
-    // Preload the new image
     try {
+        console.log(`Preloading image for ${folder}`);
         await new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = resolve;
@@ -65,40 +74,52 @@ async function updatePreview(preview) {
         });
         await fadeTransition(preview, newImageUrl);
     } catch (error) {
-        console.warn(`Failed to load image: ${newImageUrl}`);
+        console.warn(`Failed to load image for ${folder}:`, error);
     }
 }
 
-// Schedule next update for a preview
-function scheduleNextUpdate(preview, baseDelay) {
-    const randomDelay = baseDelay + Math.random() * 2000; // Random additional delay up to 2 seconds
-    setTimeout(async () => {
-        await updatePreview(preview);
-        scheduleNextUpdate(preview, baseDelay);
-    }, randomDelay);
+// Initialize preview updates
+function initializePreview(preview, index) {
+    const folder = preview.dataset.folder;
+    console.log(`Initializing preview for ${folder} at index ${index}`);
+    
+    // Set initial random image
+    const initialImage = getRandomImageUrl(folder);
+    if (initialImage) {
+        preview.src = initialImage;
+        console.log(`Set initial image for ${folder}: ${initialImage}`);
+    }
+
+    // Start updates with staggered delays
+    const baseInterval = 7000; // Base interval of 7 seconds
+    const randomOffset = Math.random() * 2000; // Random offset up to 2 seconds (7-9 seconds total)
+    const startDelay = index * 1500; // Stagger initial updates
+
+    // Set up the interval for this preview
+    setTimeout(() => {
+        // Initial update after the stagger delay
+        updatePreview(preview);
+        
+        // Then set up regular interval with random offset
+        setInterval(async () => {
+            await updatePreview(preview);
+        }, baseInterval + randomOffset);
+    }, startDelay);
 }
 
 // Initialize all previews
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded - Initializing gallery');
     const previews = document.querySelectorAll('.category-preview');
+    console.log(`Found ${previews.length} preview elements`);
     
     // Add fade transition style
     previews.forEach(preview => {
         preview.style.transition = 'opacity 0.5s ease-in-out';
     });
 
-    // Set random initial images and start staggered updates
+    // Initialize each preview with staggered updates
     previews.forEach((preview, index) => {
-        // Set initial random image
-        const initialImage = getRandomImageUrl(preview.dataset.folder);
-        if (initialImage) {
-            preview.src = initialImage;
-        }
-
-        // Start updates with staggered base delays
-        const baseDelay = 5000; // Base delay of 5 seconds
-        setTimeout(() => {
-            scheduleNextUpdate(preview, baseDelay);
-        }, index * 1500); // Stagger initial updates by 1.5 seconds
+        initializePreview(preview, index);
     });
 });
