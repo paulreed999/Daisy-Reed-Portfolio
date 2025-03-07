@@ -47,64 +47,42 @@ function getRandomImageUrl(folder, currentSrc) {
 async function fadeTransition(element, newSrc) {
     console.log(`Starting fade transition for ${element.dataset.folder}`);
     element.style.opacity = '0';
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Slower fade out (1 second)
     element.src = newSrc;
     element.style.opacity = '1';
     console.log(`Completed fade transition for ${element.dataset.folder}`);
 }
 
-// Update a single preview
-async function updatePreview(preview) {
-    const folder = preview.dataset.folder;
-    console.log(`Updating preview for ${folder}`);
+// Update all previews simultaneously
+async function updateAllPreviews(previews) {
+    console.log('Updating all previews');
     
-    const newImageUrl = getRandomImageUrl(folder, preview.src);
-    if (!newImageUrl) {
-        console.warn(`No image URL generated for ${folder}`);
-        return;
-    }
+    // Prepare all new images first
+    const updates = Array.from(previews).map(preview => {
+        const newImageUrl = getRandomImageUrl(preview.dataset.folder, preview.src);
+        return { preview, newImageUrl };
+    });
 
-    try {
-        console.log(`Preloading image for ${folder}`);
-        await new Promise((resolve, reject) => {
+    // Preload all images
+    await Promise.all(updates.map(({ newImageUrl }) => {
+        return new Promise((resolve, reject) => {
+            if (!newImageUrl) {
+                resolve();
+                return;
+            }
             const img = new Image();
             img.onload = resolve;
             img.onerror = reject;
             img.src = newImageUrl;
         });
-        await fadeTransition(preview, newImageUrl);
-    } catch (error) {
-        console.warn(`Failed to load image for ${folder}:`, error);
-    }
-}
+    }));
 
-// Initialize preview updates
-function initializePreview(preview, index) {
-    const folder = preview.dataset.folder;
-    console.log(`Initializing preview for ${folder} at index ${index}`);
-    
-    // Set initial random image
-    const initialImage = getRandomImageUrl(folder);
-    if (initialImage) {
-        preview.src = initialImage;
-        console.log(`Set initial image for ${folder}: ${initialImage}`);
-    }
-
-    // Start updates with staggered delays
-    const baseInterval = 7000; // Base interval of 7 seconds
-    const randomOffset = Math.random() * 2000; // Random offset up to 2 seconds (7-9 seconds total)
-    const startDelay = index * 1500; // Stagger initial updates
-
-    // Set up the interval for this preview
-    setTimeout(() => {
-        // Initial update after the stagger delay
-        updatePreview(preview);
-        
-        // Then set up regular interval with random offset
-        setInterval(async () => {
-            await updatePreview(preview);
-        }, baseInterval + randomOffset);
-    }, startDelay);
+    // Update all images with fade transition
+    await Promise.all(updates.map(({ preview, newImageUrl }) => {
+        if (newImageUrl) {
+            return fadeTransition(preview, newImageUrl);
+        }
+    }));
 }
 
 // Initialize all previews
@@ -113,13 +91,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const previews = document.querySelectorAll('.category-preview');
     console.log(`Found ${previews.length} preview elements`);
     
-    // Add fade transition style
+    // Add fade transition style (slower transition)
     previews.forEach(preview => {
-        preview.style.transition = 'opacity 0.5s ease-in-out';
+        preview.style.transition = 'opacity 1s ease-in-out';
     });
 
-    // Initialize each preview with staggered updates
-    previews.forEach((preview, index) => {
-        initializePreview(preview, index);
+    // Set initial random images
+    previews.forEach(preview => {
+        const initialImage = getRandomImageUrl(preview.dataset.folder);
+        if (initialImage) {
+            preview.src = initialImage;
+            console.log(`Set initial image for ${preview.dataset.folder}: ${initialImage}`);
+        }
     });
+
+    // Update all images every 7 seconds
+    setInterval(() => {
+        updateAllPreviews(previews);
+    }, 7000);
 });
