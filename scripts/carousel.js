@@ -1,4 +1,4 @@
-class ImageCarousel {
+export class ImageCarousel {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.slides = [];
@@ -38,19 +38,27 @@ class ImageCarousel {
             const imgWrapper = document.createElement('div');
             imgWrapper.className = 'carousel-image-wrapper';
             
-            // Preload image to determine orientation
-            const img = new Image();
+            // Create and add the image to the wrapper
+            const img = document.createElement('img');
+            img.src = slide.url;
+            img.alt = slide.caption || '';
+            img.loading = 'lazy';
+            
+            // Check image orientation when it loads
             img.onload = () => {
                 imgWrapper.classList.add(img.width > img.height ? 'landscape' : 'portrait');
             };
-            img.src = slide.url;
             
-            slideElement.innerHTML = `
-                <div class="carousel-image-wrapper">
-                    <img src="${slide.url}" alt="${slide.caption || ''}" loading="lazy" />
-                </div>
-                ${slide.caption ? `<div class="carousel-caption">${slide.caption}</div>` : ''}
-            `;
+            imgWrapper.appendChild(img);
+            
+            // Add wrapper and caption to slide
+            slideElement.appendChild(imgWrapper);
+            if (slide.caption) {
+                const caption = document.createElement('div');
+                caption.className = 'carousel-caption';
+                caption.textContent = slide.caption;
+                slideElement.appendChild(caption);
+            }
             track.appendChild(slideElement);
 
             // Create dot

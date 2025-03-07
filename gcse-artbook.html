@@ -37,24 +37,28 @@
         <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
     </footer>
 
-    <script src="scripts/carousel.js"></script>
-    <script>
+    <script type="module">
+        import { ImageCarousel } from './scripts/carousel.js';
+        
         document.addEventListener('DOMContentLoaded', () => {
-            const carousel = new ImageCarousel('gcse-carousel');
-            
-            // Example images - replace with actual artwork images
-            const gcseArtwork = [
-                {
-                    url: 'images/gcse-artbook/Sample-Image-file-Download.jpg',
-                    caption: 'GCSE Artbook 1'
-                },
-                {
-                    url: 'images/gcse-artbook/sample-2.jpg',
-                    caption: 'GCSE Artbook 2'
-                }
-            ];
-            
-            carousel.addImages(gcseArtwork);
+            try {
+                const carousel = new ImageCarousel('gcse-carousel');
+                
+                const gcseArtwork = [
+                    {
+                        url: 'images/gcse-artbook/Sample-Image-file-Download.jpg',
+                        caption: 'GCSE Artbook 1'
+                    },
+                    {
+                        url: 'images/gcse-artbook/sample-2.jpg',
+                        caption: 'GCSE Artbook 2'
+                    }
+                ];
+                
+                carousel.addImages(gcseArtwork);
+            } catch (error) {
+                console.error('Error initializing carousel:', error);
+            }
         });
     </script>
 </body>

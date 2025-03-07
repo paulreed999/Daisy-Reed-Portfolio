@@ -37,24 +37,28 @@
         <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
     </footer>
 
-    <script src="scripts/carousel.js"></script>
-    <script>
+    <script type="module">
+        import { ImageCarousel } from './scripts/carousel.js';
+        
         document.addEventListener('DOMContentLoaded', () => {
-            const carousel = new ImageCarousel('other-carousel');
-            
-            // Example images - replace with actual artwork images
-            const otherArtwork = [
-                {
-                    url: 'images/other/Sample-Image-file-Download (1).jpg',
-                    caption: 'Other Artwork 1'
-                },
-                {
-                    url: 'images/other/sample-5.jpg',
-                    caption: 'Other Artwork 2'
-                }
-            ];
-            
-            carousel.addImages(otherArtwork);
+            try {
+                const carousel = new ImageCarousel('other-carousel');
+                
+                const otherArtwork = [
+                    {
+                        url: 'images/other/Sample-Image-file-Download (1).jpg',
+                        caption: 'Other Artwork 1'
+                    },
+                    {
+                        url: 'images/other/sample-5.jpg',
+                        caption: 'Other Artwork 2'
+                    }
+                ];
+                
+                carousel.addImages(otherArtwork);
+            } catch (error) {
+                console.error('Error initializing carousel:', error);
+            }
         });
     </script>
 </body>

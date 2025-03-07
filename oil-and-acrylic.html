@@ -37,25 +37,28 @@
         <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
     </footer>
 
-    <script src="scripts/carousel.js"></script>
-    <script>
+    <script type="module">
+        import { ImageCarousel } from './scripts/carousel.js';
         // Initialize the carousel when the page loads
         document.addEventListener('DOMContentLoaded', () => {
-            const carousel = new ImageCarousel('oil-and-acrylic-carousel');
-            
-            // Example images - replace with actual artwork images
-            const paintings = [
-                {
-                    url: 'images/oil-and-acrylic/Sample-Image-file-Download (2).jpg',
-                    caption: 'Oil & Acrylic Artwork 1'
-                },
-                {
-                    url: 'images/oil-and-acrylic/sample-1.jpg',
-                    caption: 'Oil & Acrylic Artwork 2'
-                }
-            ];
-            
-            carousel.addImages(paintings);
+            try {
+                const carousel = new ImageCarousel('oil-and-acrylic-carousel');
+                
+                const paintings = [
+                    {
+                        url: 'images/oil-and-acrylic/Sample-Image-file-Download (2).jpg',
+                        caption: 'Oil & Acrylic Artwork 1'
+                    },
+                    {
+                        url: 'images/oil-and-acrylic/sample-1.jpg',
+                        caption: 'Oil & Acrylic Artwork 2'
+                    }
+                ];
+                
+                carousel.addImages(paintings);
+            } catch (error) {
+                console.error('Error initializing carousel:', error);
+            }
         });
     </script>
 </body>
