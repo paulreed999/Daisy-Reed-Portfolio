@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawings - Daisy Reed's Artwork</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Daisy Reed</h1>
+            <p>Drawings Portfolio</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gcse-artbook.html">GCSE Artbook</a></li>
+            <li><a href="drawings.html" class="active">Drawings</a></li>
+            <li><a href="oil-and-acrylic.html">Oil & Acrylic</a></li>
+            <li><a href="other.html">Other</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="drawings-carousel"></div>
+        
+        <div class="artwork-description">
+            <h2>My Drawings</h2>
+            <p>This collection features my drawings in various mediums including pencil, charcoal, and ink. Each piece demonstrates my attention to detail and passion for capturing form and texture through traditional drawing techniques.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/carousel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = new ImageCarousel('drawings-carousel');
+            
+            // Example images - replace with actual artwork images
+            const drawings = [
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5DaGFyY29hbCAtICJQb3J0cmFpdCBTdHVkeSI8L3RleHQ+PC9zdmc+',
+                    caption: 'Charcoal - "Portrait Study"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5QZW5jaWwgLSAiTmF0dXJlIFNrZXRjaCI8L3RleHQ+PC9zdmc+',
+                    caption: 'Pencil - "Nature Sketch"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbmsgLSAiQWJzdHJhY3QgTGluZXMiPC90ZXh0Pjwvc3ZnPg==',
+                    caption: 'Ink - "Abstract Lines"'
+                }
+            ];
+            
+            carousel.addImages(drawings);
+        });
+    </script>
+</body>
+</html>

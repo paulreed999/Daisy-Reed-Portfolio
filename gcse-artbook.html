@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCSE Artbook - Daisy Reed's Artwork</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Daisy Reed</h1>
+            <p>GCSE Artbook</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gcse-artbook.html" class="active">GCSE Artbook</a></li>
+            <li><a href="drawings.html">Drawings</a></li>
+            <li><a href="oil-and-acrylic.html">Oil & Acrylic</a></li>
+            <li><a href="other.html">Other</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="gcse-carousel"></div>
+        
+        <div class="artwork-description">
+            <h2>My GCSE Artbook</h2>
+            <p>This collection showcases the artwork created during my GCSE Art course, demonstrating my development and exploration of various themes and techniques.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/carousel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = new ImageCarousel('gcse-carousel');
+            
+            // Example images - replace with actual artwork images
+            const gcseArtwork = [
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5HQ1NFIFByb2plY3QgLSAiTmF0dXJlIFN0dWR5Ijwvc3RleHQ+PC9zdmc+',
+                    caption: 'GCSE Project - "Nature Study"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5HQ1NFIFByb2plY3QgLSAiUG9ydHJhaXQgU2VyaWVzIjwvdGV4dD48L3N2Zz4=',
+                    caption: 'GCSE Project - "Portrait Series"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5HQ1NFIFByb2plY3QgLSAiQWJzdHJhY3QgQ29tcG9zaXRpb24iPC90ZXh0Pjwvc3ZnPg==',
+                    caption: 'GCSE Project - "Abstract Composition"'
+                }
+            ];
+            
+            carousel.addImages(gcseArtwork);
+        });
+    </script>
+</body>
+</html>

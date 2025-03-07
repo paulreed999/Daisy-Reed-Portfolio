@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Artwork - Daisy Reed's Artwork</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Daisy Reed</h1>
+            <p>Other Artwork</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gcse-artbook.html">GCSE Artbook</a></li>
+            <li><a href="drawings.html">Drawings</a></li>
+            <li><a href="oil-and-acrylic.html">Oil & Acrylic</a></li>
+            <li><a href="other.html" class="active">Other</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="other-carousel"></div>
+        
+        <div class="artwork-description">
+            <h2>Other Artwork</h2>
+            <p>This collection showcases various other artistic projects and experiments, including mixed media works, digital art, and other creative explorations.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/carousel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = new ImageCarousel('other-carousel');
+            
+            // Example images - replace with actual artwork images
+            const otherArtwork = [
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5NaXhlZCBNZWRpYSAtICJUZXh0dXJlIFN0dWR5Ijwvc3RleHQ+PC9zdmc+',
+                    caption: 'Mixed Media - "Texture Study"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5EaWdpdGFsIEFydCAtICJDb2xvciBFeHBlcmltZW50Ijwvc3RleHQ+PC9zdmc+',
+                    caption: 'Digital Art - "Color Experiment"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5QaG90b2dyYXBoeSAtICJMaWdodCBhbmQgU2hhZG93Ijwvc3RleHQ+PC9zdmc+',
+                    caption: 'Photography - "Light and Shadow"'
+                }
+            ];
+            
+            carousel.addImages(otherArtwork);
+        });
+    </script>
+</body>
+</html>

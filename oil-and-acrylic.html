@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oil & Acrylic - Daisy Reed's Artwork</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Daisy Reed</h1>
+            <p>Oil & Acrylic Portfolio</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gcse-artbook.html">GCSE Artbook</a></li>
+            <li><a href="drawings.html">Drawings</a></li>
+            <li><a href="oil-and-acrylic.html" class="active">Oil & Acrylic</a></li>
+            <li><a href="other.html">Other</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="oil-and-acrylic-carousel"></div>
+        
+        <div class="artwork-description">
+            <h2>Oil & Acrylic Paintings</h2>
+            <p>This collection showcases my work in oil and acrylic paints. Each piece represents my exploration of color, texture, and composition through these versatile mediums.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Daisy Reed. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/carousel.js"></script>
+    <script>
+        // Initialize the carousel when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = new ImageCarousel('oil-and-acrylic-carousel');
+            
+            // Example images - replace with actual artwork images
+            const paintings = [
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5PaWwgUGFpbnRpbmcgLSAiQXV0dW1uIFN1bnNldCI8L3RleHQ+PC9zdmc+',
+                    caption: 'Oil Painting - "Autumn Sunset"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5BY3J5bGljIC0gIkNpdHkgTGlnaHRzIjwvdGV4dD48L3N2Zz4=',
+                    caption: 'Acrylic - "City Lights"'
+                },
+                {
+                    url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmMzZTUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5PaWwgUGFpbnRpbmcgLSAiU2VhIFZpZXciPC90ZXh0Pjwvc3ZnPg==',
+                    caption: 'Oil Painting - "Sea View"'
+                }
+            ];
+            
+            carousel.addImages(paintings);
+        });
+    </script>
+</body>
+</html>
