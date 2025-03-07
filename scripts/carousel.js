@@ -4,11 +4,14 @@ class ImageCarousel {
         this.slides = [];
         this.currentIndex = 0;
         this.autoPlayInterval = null;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
     }
 
     addImages(images) {
         this.slides = images;
         this.render();
+        this.setupTouchEvents();
     }
 
     render() {
@@ -17,8 +20,8 @@ class ImageCarousel {
         this.container.innerHTML = `
             <div class="carousel-container">
                 <div class="carousel-track"></div>
-                <button class="carousel-button prev">&lt;</button>
-                <button class="carousel-button next">&gt;</button>
+                <button class="carousel-button prev" aria-label="Previous slide">&lt;</button>
+                <button class="carousel-button next" aria-label="Next slide">&gt;</button>
                 <div class="carousel-dots"></div>
             </div>
         `;
@@ -30,8 +33,22 @@ class ImageCarousel {
         this.slides.forEach((slide, index) => {
             const slideElement = document.createElement('div');
             slideElement.className = 'carousel-slide';
+            
+            // Create image wrapper for better aspect ratio handling
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = 'carousel-image-wrapper';
+            
+            // Preload image to determine orientation
+            const img = new Image();
+            img.onload = () => {
+                imgWrapper.classList.add(img.width > img.height ? 'landscape' : 'portrait');
+            };
+            img.src = slide.url;
+            
             slideElement.innerHTML = `
-                <img src="${slide.url}" alt="${slide.caption || ''}" />
+                <div class="carousel-image-wrapper">
+                    <img src="${slide.url}" alt="${slide.caption || ''}" loading="lazy" />
+                </div>
                 ${slide.caption ? `<div class="carousel-caption">${slide.caption}</div>` : ''}
             `;
             track.appendChild(slideElement);
@@ -39,7 +56,7 @@ class ImageCarousel {
             // Create dot
             const dot = document.createElement('button');
             dot.className = 'carousel-dot';
-            dot.setAttribute('aria-label', `Slide ${index + 1}`);
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
             dot.addEventListener('click', () => this.goToSlide(index));
             dotsContainer.appendChild(dot);
         });
@@ -53,6 +70,29 @@ class ImageCarousel {
         this.startAutoPlay();
     }
 
+    setupTouchEvents() {
+        this.container.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.touches[0].clientX;
+            this.stopAutoPlay();
+        }, { passive: true });
+
+        this.container.addEventListener('touchmove', (e) => {
+            this.touchEndX = e.touches[0].clientX;
+        }, { passive: true });
+
+        this.container.addEventListener('touchend', () => {
+            const diff = this.touchStartX - this.touchEndX;
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0) {
+                    this.nextSlide();
+                } else {
+                    this.prevSlide();
+                }
+            }
+            this.startAutoPlay();
+        });
+    }
+
     updateSlides() {
         if (!this.container) return;
 
@@ -63,6 +103,11 @@ class ImageCarousel {
             if (index === this.currentIndex) {
                 slide.classList.add('active');
                 dots[index].classList.add('active');
+                // Preload next image
+                if (index < slides.length - 1) {
+                    const nextImg = slides[index + 1].querySelector('img');
+                    if (nextImg) nextImg.loading = 'eager';
+                }
             } else {
                 slide.classList.remove('active');
                 dots[index].classList.remove('active');
